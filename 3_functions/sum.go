@@ -2,7 +2,7 @@ package main
 
 import ("fmt")
 
-func sum(n1 int64, n2 int64) int64 {
+func sum(n1, n2 int64) int64 {
 	return n1 + n2
 }
 
