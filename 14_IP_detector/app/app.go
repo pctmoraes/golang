@@ -26,7 +26,7 @@ func Detect() *cli.App {
 			Name:   "ip",
 			Usage:  "Return IP addresses",
 			Flags:  flags,
-			Action: getIP,
+			Action: getIPs,
 		},
 		{
 			Name:	"server",
@@ -53,7 +53,7 @@ func getIPs(c *cli.Context) {
 	}
 }
 
-funct getServers(c *cli.Context) {
+func getServers(c *cli.Context) {
 	host := c.String("host")
 
 	servers, _error := net.LookupNS(host)
