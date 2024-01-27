@@ -7,7 +7,8 @@ import (
 	"github.com/urfave/cli"
 )
 
-// Detect will return the server IP address searched
+// Detect will return the server IP address 
+// or the server name that is being searched
 func Detect() *cli.App {
 	app := *cli.NewApp()
 	app.Name = "IP Detector"
@@ -27,13 +28,18 @@ func Detect() *cli.App {
 			Flags:  flags,
 			Action: getIP,
 		},
-		
+		{
+			Name:	"server",
+			Usage:	"Return the server name",
+			Flags:	flags,
+			Action:	getServers,
+		},
 	}
 
 	return &app
 }
 
-func getIP(c *cli.Context) {
+func getIPs(c *cli.Context) {
 	host := c.String("host")
 
 	ips, _error := net.LookupIP(host)
@@ -44,5 +50,19 @@ func getIP(c *cli.Context) {
 
 	for _, ip := range ips {
 		fmt.Println(ip)
+	}
+}
+
+funct getServers(c *cli.Context) {
+	host := c.String("host")
+
+	servers, _error := net.LookupNS(host)
+
+	if _error != nil {
+		log.Fatal(_error)
+	}
+
+	for _, server := range servers {
+		fmt.Println(server.Host)
 	}
 }
